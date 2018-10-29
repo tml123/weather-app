@@ -6,15 +6,18 @@ const fs = require('fs');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const path = require('path');
+
 let templates = [];
 let dir = 'src/templates';
 let files = fs.readdirSync(dir);
 
-
+const APP_DIR = path.resolve(__dirname, '../src');
 
 module.exports = env => {
     const { PLATFORM, VERSION } = env;
     return merge([ {
+        entry: ['@babel/polyfill', APP_DIR],
         module: {
             rules: [
                 {
@@ -40,7 +43,8 @@ module.exports = env => {
             }),
             new webpack.DefinePlugin({
                 'process.env.VERSION': JSON.stringify(env.VERSION),
-                'process.env.PLATFORM': JSON.stringify(env.PLATFORM)
+                'process.env.PLATFORM': JSON.stringify(env.PLATFORM),
+                'process.env.WEATHER_API_KEY': JSON.stringify(env.WEATHER_API_KEY)
             }),
             new CopyWebpackPlugin([ { from: 'src/static' } ])
         ]

@@ -13,6 +13,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.4",
     "copy-webpack-plugin": "^4.5.4",
     "css-loader": "^1.0.0",
@@ -28,11 +29,15 @@
     "webpack-visualizer-plugin": "^0.1.11"
   },
   "scripts": {
-    "start": "webpack-dev-server --mode development --config config/webpack.base.config.js --open --hot --history-api-fallback --env.PLATFORM=local --env.VERSION=stag",
-    "prebuild": "webpack --mode production --config config/webpack.prod.config.js --env.PLATFORM=production --env.VERSION=stag --progress",
+    "start": "webpack-dev-server --mode development --config config/webpack.base.config.js --open --hot --history-api-fallback --env.PLATFORM=local --env.VERSION=stag --env.WEATHER_API_KEY=fd8cbbbd63ffd597d837a0afe79aecc7",
+    "prebuild": "webpack --mode production --config config/webpack.prod.config.js --env.PLATFORM=production --env.VERSION=stag --env.WEATHER_API_KEY=fd8cbbbd63ffd597d837a0afe79aecc7 --progress",
     "build": "node server"
   },
   "dependencies": {
-    "express": "^4.16.4"
+    "d3": "^5.7.0",
+    "express": "^4.16.4",
+    "moment": "^2.22.2",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0"
   }
 }

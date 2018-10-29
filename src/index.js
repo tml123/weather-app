@@ -1,41 +1,31 @@
 import './index.css';
 
+import Place from './js/place';
+import WindChart from './js/chart';
+
 (function() {
 
     if (!"geolocation" in navigator) {
     let div = document.createElement('div').classList.add('alert-warn');
-    div.innerHTML = 'We have no idea where you are'
+    div.innerHTML = `Location isn't supported`
     document.body.appendChild(div);
     }
     else {
-        getMyLocation(document.querySelector('#msg-box'));
+        const place = new Place();
+
+        document.querySelector('#msg-box').innerHTML = 'Location Found, Getting Weather...'
+
+        setTimeout( () => {
+            place.getCurrentWeather()
+            .then(response => console.log(response))
+            .catch(error => console.log(error));
+        
+            place.getFiveDay()
+            .then(response => {
+                console.log(response);
+                let windChart = new WindChart(null, response.list, {});
+            })
+            .catch(error => console.log(error));
+        }, 1000);
     }
 }());
-
-function $id(id) {
-    return document.getElementById(id);
-}
-
-function loadHTML(url, id) {
-    const req = new XMLHttpRequest();
-    req.open('GET', url);
-    req.send();
-    req.onload = () => {
-        $id(id).insertAdjacentHTML('afterbegin', req.responseText);
-    };
-}
-
-function getMyLocation(element) {
-
-    function success(position) {
-        let { latitude, longitude } = position.coords;
-        element.innerHTML = `We know where you are: ${latitude}, ${longitude}`;
-        //getCurrentWeather(latitude, longitude);
-    }
-
-    function error() {
-        console.log('Failed to retrieve your location')
-    }
-
-    navigator.geolocation.getCurrentPosition(success, error);
-}
