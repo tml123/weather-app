@@ -1,9 +1,15 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 import './index.css';
 
 import Place from './js/place';
 import WindChart from './js/chart';
+import { LocationContext, LocationProvider } from './components/LocationContext';
 
-(function() {
+
+
+/* (function() {
 
     if (!"geolocation" in navigator) {
     let div = document.createElement('div').classList.add('alert-warn');
@@ -28,4 +34,18 @@ import WindChart from './js/chart';
             .catch(error => console.log(error));
         }, 1000);
     }
-}());
+}()); */
+
+const App = () => {
+    return (
+        <LocationProvider>
+            <div>
+                <LocationContext.Consumer>
+                    { (context) => <div>{context.position}</div> }
+                </LocationContext.Consumer>
+            </div>
+        </LocationProvider>
+    )
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));

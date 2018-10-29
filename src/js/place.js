@@ -5,7 +5,7 @@ export default class Place {
     weather = new Weather();
     
     constructor(latitude=null, longitude=null) { 
-        if (!latitude && !longitude) {
+       /*  if (!latitude && !longitude) {
             this.getMyLocation()
                 .then((response) => {
                     const { latitude, longitude } = response.coords;
@@ -13,7 +13,7 @@ export default class Place {
                     this.longitude = longitude; 
                 },
                 (error) => console.log(error));
-        }
+        } */
     }
 
     getMyLocation = () => new Promise((resolve, reject) => {
