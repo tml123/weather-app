@@ -8,10 +8,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const path = require('path');
 
-let templates = [];
-let dir = 'src/templates';
-let files = fs.readdirSync(dir);
-
 const APP_DIR = path.resolve(__dirname, '../src');
 
 module.exports = env => {

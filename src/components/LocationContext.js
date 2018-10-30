@@ -24,10 +24,22 @@ export class LocationProvider extends React.Component {
     }
 
     render () {
-        return (
+        return !!this.state.position && (
             <LocationContext.Provider value={this.state}>
                 { this.props.children }
             </LocationContext.Provider>
         )
+    }
+}
+
+export function withLocation(Component) {
+    return class extends React.Component {
+        render() {
+            return (
+                <LocationContext.Consumer>
+                    { context => <Component {...this.props} location={context.position}/>}
+                </LocationContext.Consumer>
+            )
+        }
     }
 }
